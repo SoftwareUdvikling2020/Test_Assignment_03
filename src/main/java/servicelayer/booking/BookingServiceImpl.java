@@ -1,5 +1,6 @@
 package servicelayer.booking;
 
+import datalayer.booking.BookingStorage;
 import dto.Booking;
 
 import java.sql.Date;
@@ -15,7 +16,7 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public int createBooking(int customerId, int employeeId, Date date, Time start, Time end) {
-        return 0;
+        storage.
     }
 
     @Override

@@ -50,16 +50,8 @@ public class BookingStorageImpl implements BookingStorage {
 
     }
 
-    /*
-    	ID int not null auto_increment,
-	customerId int not null,
-	employeeId int not null,
-	date Date not null,
-	start Time not null,
-	end Time not null,
-     */
     @Override
-    public int createCustomer(BookingCreation bookingCreation) throws SQLException {
+    public int createBooking(BookingCreation bookingCreation) throws SQLException {
         var sql = "insert into Customers(customerId, employeeId,date,start,end) values (?,?,?,?,?)";
         try (var con = getConnection();
              var stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
