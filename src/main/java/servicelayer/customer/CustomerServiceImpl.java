@@ -26,8 +26,8 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer getCustomerById(int id) {
-        return null;
+    public Customer getCustomerById(int id) throws SQLException {
+        return customerStorage.getCustomerWithId(id);
     }
 
     @Override
