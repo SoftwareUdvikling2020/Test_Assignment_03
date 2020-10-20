@@ -24,7 +24,7 @@ public class EmployeeStorageImpl implements EmployeeStorage {
 
     @Override
     public Employee getEmployeeWithId(int employeeId) throws SQLException {
-        var sql = "select ID, firstname, lastname, birthdate from Employee where id = ?";
+        var sql = "select ID, firstname, lastname, birthdate from Employees where id = ?";
         try (var con = getConnection();
              var stmt = con.prepareStatement(sql)) {
             stmt.setInt(1, employeeId);
@@ -35,7 +35,7 @@ public class EmployeeStorageImpl implements EmployeeStorage {
                     var firstname = resultSet.getString("firstname");
                     var lastname = resultSet.getString("lastname");
                     var birthdate = resultSet.getDate("birthdate");
-                    return new Employee(id, firstname, lastname, birthdate);
+                    return new Employee(id, firstname, lastname);
                 }
                 return null;
             }
@@ -48,15 +48,14 @@ public class EmployeeStorageImpl implements EmployeeStorage {
              var stmt = con.createStatement()) {
             var results = new ArrayList<Employee>();
 
-            ResultSet resultSet = stmt.executeQuery("select ID, firstname, lastname from Employee");
+            ResultSet resultSet = stmt.executeQuery("select ID, firstname, lastname from Employees");
 
             while (resultSet.next()) {
                 int id = resultSet.getInt("ID");
                 String firstname = resultSet.getString("firstname");
                 String lastname = resultSet.getString("lastname");
-                Date birthdate = resultSet.getDate("birthdate");
 
-                Employee employee = new Employee(id, firstname, lastname, birthdate);
+                Employee employee = new Employee(id, firstname, lastname);
                 results.add(employee);
             }
 
@@ -65,7 +64,7 @@ public class EmployeeStorageImpl implements EmployeeStorage {
     }
 
     public int createEmployee(EmployeeCreation emplyeeToCreate) throws SQLException {
-        var sql = "insert into Employee(firstname, lastname) values (?, ?)";
+        var sql = "insert into Employees(firstname, lastname) values (?, ?)";
         try (var con = getConnection();
              var stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setString(1, emplyeeToCreate.getFirstname());

@@ -77,7 +77,7 @@ public class BookingStorageImpl implements BookingStorage {
 
     @Override
     public int createBooking(BookingCreation bookingCreation) throws SQLException {
-        var sql = "insert into Customers(customerId, employeeId,date,start,end) values (?,?,?,?,?)";
+        var sql = "insert into bookings(customerId, employeeId,date,start,end) values (?,?,?,?,?)";
         try (var con = getConnection();
              var stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setInt(1, bookingCreation.getCustomerId());

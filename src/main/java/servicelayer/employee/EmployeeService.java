@@ -7,6 +7,6 @@ import java.util.Collection;
 public interface EmployeeService {
 
 
-    int createEmployee(Employee employee) throws SQLException;
+    int createEmployee(String firstname, String lastname) throws SQLException;
     Employee getEmployeeById(int employeeId) throws SQLException;
 }

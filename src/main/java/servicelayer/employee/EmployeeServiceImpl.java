@@ -16,8 +16,8 @@ public class EmployeeServiceImpl implements EmployeeService{
 
 
     @Override
-    public int createEmployee(Employee employee) throws SQLException {
-        return storage.createEmployee(new EmployeeCreation(employee.getFirstname(), employee.getLastname()));
+    public int createEmployee(String firstname, String lastname) throws SQLException {
+        return storage.createEmployee(new EmployeeCreation(firstname, lastname));
     }
 
     @Override

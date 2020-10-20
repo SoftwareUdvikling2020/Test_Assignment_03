@@ -10,7 +10,7 @@ public class BookingCreation {
     private final Time startTime, endTime;
 
 
-    public BookingCreation(int id, int customerId, int employeeId, Date date, Time startTime, Time endTime) {
+    public BookingCreation(int customerId, int employeeId, Date date, Time startTime, Time endTime) {
         this.customerId = customerId;
         this.employeeId = employeeId;
         this.date = date;
