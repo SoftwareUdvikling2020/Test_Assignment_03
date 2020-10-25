@@ -13,6 +13,7 @@ import org.junit.jupiter.api.TestInstance;
 
 import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.Time;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -31,7 +32,7 @@ public class CreateBookingTest {
                 .defaultSchema(db)
                 .createSchemas(true)
                 .schemas(db)
-                .target("2")
+                .target("3")
                 .dataSource(url, "root", "testuser123"));
 
         flyway.migrate();
@@ -57,8 +58,8 @@ public class CreateBookingTest {
         // Arrange
         // Act
         var bday = new Date(1239821l);
-        var id1 = bookingStorage.createBooking(new BookingCreation(2, 2,bday,null,null));
-        var id2 = bookingStorage.createBooking(new BookingCreation(1, 1,bday,null,null));
+        var id1 = bookingStorage.createBooking(new BookingCreation(2, 2,bday,new Time(1111111),new Time(111111)));
+        var id2 = bookingStorage.createBooking(new BookingCreation(1, 1,bday,new Time(111111),new Time(111111)));
 
         // Assert
         assertEquals(1, id2 - id1);
