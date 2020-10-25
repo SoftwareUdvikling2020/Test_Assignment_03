@@ -5,5 +5,3 @@ create table Customers (
 	birthdate date,
 	PRIMARY KEY (ID)
 )
-
-

@@ -2,6 +2,10 @@ package integration.servicelayer.customer;
 
 import datalayer.customer.CustomerStorage;
 import datalayer.customer.CustomerStorageImpl;
+import datalayer.employee.EmployeeStorage;
+import datalayer.employee.EmployeeStorageImpl;
+import dto.Employee;
+import dto.EmployeeCreation;
 import org.flywaydb.core.Flyway;
 import org.flywaydb.core.api.configuration.FluentConfiguration;
 import org.junit.jupiter.api.BeforeAll;
@@ -14,18 +18,19 @@ import org.testcontainers.utility.DockerImageName;
 import servicelayer.customer.CustomerService;
 import servicelayer.customer.CustomerServiceException;
 import servicelayer.customer.CustomerServiceImpl;
+import servicelayer.employee.EmployeeService;
+import servicelayer.employee.EmployeeServiceImpl;
 
 import java.sql.SQLException;
-import java.util.Date;
 
-import static org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @Testcontainers
-class SvcCreateCustomerTest {
-
-    private CustomerService svc;
-    private CustomerStorage storage;
+public class SvcCreateEmployeeTest {
+    private EmployeeService svc;
+    private EmployeeStorage storage;
 
     private static final int PORT = 3306;
     private static final String PASSWORD = "testuser1234";
@@ -52,20 +57,19 @@ class SvcCreateCustomerTest {
         );
         flyway.migrate();
 
-        storage = new CustomerStorageImpl(url + db,"root", PASSWORD);
-        svc = new CustomerServiceImpl(storage);
+        storage = new EmployeeStorageImpl(url + db,"root", PASSWORD);
+        svc = new EmployeeServiceImpl(storage);
     }
 
     @Test
-    public void mustSaveCustomerToDatabaseWhenCallingCreateCustomer() throws CustomerServiceException, SQLException {
+    public void mustSaveEmployeeToDatabaseWhenCallingCreateEmployee() throws CustomerServiceException, SQLException {
         // Arrange
         var firstName = "John";
         var lastName = "Johnson";
-        var bday = new Date(1239821l);
-        int id = svc.createCustomer(firstName, lastName, bday);
+        int id = svc.createEmployee(firstName, lastName);
 
         // Act
-        var createdCustomer = storage.getCustomerWithId(id);
+        var createdCustomer = storage.getEmployeeWithId(id);
 
         // Assert
         assertEquals(firstName, createdCustomer.getFirstname());
