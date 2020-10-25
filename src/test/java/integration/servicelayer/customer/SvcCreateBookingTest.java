@@ -1,11 +1,9 @@
 package integration.servicelayer.customer;
 
+import datalayer.booking.BookingStorage;
+import datalayer.booking.BookingStorageImpl;
 import datalayer.customer.CustomerStorage;
 import datalayer.customer.CustomerStorageImpl;
-import datalayer.employee.EmployeeStorage;
-import datalayer.employee.EmployeeStorageImpl;
-import dto.Employee;
-import dto.EmployeeCreation;
 import org.flywaydb.core.Flyway;
 import org.flywaydb.core.api.configuration.FluentConfiguration;
 import org.junit.jupiter.api.BeforeAll;
@@ -15,22 +13,22 @@ import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
+import servicelayer.booking.BookingService;
+import servicelayer.booking.BookingServiceImpl;
 import servicelayer.customer.CustomerService;
 import servicelayer.customer.CustomerServiceException;
 import servicelayer.customer.CustomerServiceImpl;
-import servicelayer.employee.EmployeeService;
-import servicelayer.employee.EmployeeServiceImpl;
 
 import java.sql.SQLException;
-
+import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @Testcontainers
-public class SvcCreateEmployeeTest {
-    private EmployeeService svc;
-    private EmployeeStorage storage;
+public class SvcCreateBookingTest {
+
+    private BookingService svc;
+    private BookingStorage storage;
 
     private static final int PORT = 3306;
     private static final String PASSWORD = "testuser1234";
@@ -57,22 +55,21 @@ public class SvcCreateEmployeeTest {
         );
         flyway.migrate();
 
-        storage = new EmployeeStorageImpl(url + db,"root", PASSWORD);
-        svc = new EmployeeServiceImpl(storage);
+        storage = new BookingStorageImpl(url + db,"root", PASSWORD);
+        svc = new BookingServiceImpl(storage);
     }
 
     @Test
-    public void mustSaveEmployeeToDatabaseWhenCallingCreateEmployee() throws CustomerServiceException, SQLException {
+    public void mustSaveBookingToDatabaseWhenCallingCreateBooking() throws  SQLException {
+
         // Arrange
-        var firstName = "John";
-        var lastName = "Johnson";
-        int id = svc.createEmployee(firstName, lastName);
+        var customerId = 1;
+        svc.createBooking(customerId, 1, null,null,null);
 
         // Act
-        var createdEmployee = storage.getEmployeeWithId(id);
+        var createdCustomer = storage.getBookingsForCustomer(customerId);
 
         // Assert
-        assertEquals(firstName, createdEmployee.getFirstname());
-        assertEquals(lastName, createdEmployee.getLastname());
+        assertEquals(1, createdCustomer.size());
     }
 }

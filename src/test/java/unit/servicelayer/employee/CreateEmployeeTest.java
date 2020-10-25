@@ -32,7 +32,7 @@ public class CreateEmployeeTest {
     }
 
     @Test
-    public void mustCallStorageWhenCreatingCustomer() throws CustomerServiceException, SQLException {
+    public void mustCallStorageWhenCreatingCustomer() throws SQLException {
         // Arrange
         // Act
         var firstName = "a";

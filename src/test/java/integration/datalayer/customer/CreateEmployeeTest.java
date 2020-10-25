@@ -59,9 +59,9 @@ public class CreateEmployeeTest {
         employeeStorage.createEmployee(new EmployeeCreation("John","Carlssonn"));
 
         // Assert
-        var customers = employeeStorage.getEmployees();
+        var employees = employeeStorage.getEmployees();
         assertTrue(
-                customers.stream().anyMatch(x ->
+                employees.stream().anyMatch(x ->
                         x.getFirstname().equals("John") &&
                                 x.getLastname().equals("Carlssonn")));
     }
