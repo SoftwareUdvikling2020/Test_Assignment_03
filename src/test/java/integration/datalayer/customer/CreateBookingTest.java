@@ -44,7 +44,7 @@ public class CreateBookingTest {
     public void mustSaveBookingInDatabaseWhenCallingCreateBooking() throws SQLException {
         // Arrange
         // Act
-        bookingStorage.createBooking(new BookingCreation(1, 1,null,null,null));
+        bookingStorage.createBooking(new BookingCreation(1, 1,new Date(123456),new Time(System.currentTimeMillis()),new Time(System.currentTimeMillis() + 123456)));
         var booking = bookingStorage.getBookingsForCustomer(1);
         // Assert
         assertTrue(
