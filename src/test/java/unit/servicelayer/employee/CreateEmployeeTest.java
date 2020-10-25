@@ -1,9 +1,10 @@
-package unit.servicelayer.customer;
+package unit.servicelayer.employee;
 
 import datalayer.customer.CustomerStorage;
 import datalayer.employee.EmployeeStorage;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import servicelayer.customer.CustomerServiceException;
 import servicelayer.customer.CustomerServiceImpl;
 import servicelayer.employee.EmployeeService;
@@ -14,7 +15,7 @@ import java.util.Date;
 
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.*;
-
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class CreateEmployeeTest {
 
     // SUT (System Under Test)

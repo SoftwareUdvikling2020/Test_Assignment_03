@@ -4,13 +4,18 @@ import datalayer.booking.BookingStorage;
 import datalayer.booking.BookingStorageImpl;
 import datalayer.employee.EmployeeStorage;
 import datalayer.employee.EmployeeStorageImpl;
+import dto.BookingCreation;
 import dto.Customer;
 import datalayer.customer.CustomerStorageImpl;
 import dto.Employee;
+import servicelayer.booking.BookingService;
+import servicelayer.booking.BookingServiceImpl;
 import servicelayer.employee.EmployeeService;
 import servicelayer.employee.EmployeeServiceImpl;
 
+import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.Time;
 
 public class Main {
 
@@ -34,6 +39,11 @@ public class Main {
         es.createEmployee("mathias", "kristensen");
 
         empstorage.getEmployees().forEach(employee -> System.out.println(employee.getFirstname()));
+
+        BookingServiceImpl bs = new BookingServiceImpl(bookstorage);
+        bs.createBooking(1, 3,new Date(System.currentTimeMillis()), new Time(System.currentTimeMillis()), new Time(System.currentTimeMillis()+1000000));
+
+        bookstorage.getBookingsForCustomer(1).forEach(booking -> System.out.println(booking.getDate()));
 
     }
 
