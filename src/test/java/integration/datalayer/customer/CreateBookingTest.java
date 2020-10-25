@@ -31,7 +31,7 @@ public class CreateBookingTest {
                 .defaultSchema(db)
                 .createSchemas(true)
                 .schemas(db)
-                .target("2")
+                .target("3")
                 .dataSource(url, "root", "testuser123"));
 
         flyway.migrate();

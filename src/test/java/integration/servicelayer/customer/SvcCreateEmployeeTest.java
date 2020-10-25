@@ -62,7 +62,7 @@ public class SvcCreateEmployeeTest {
     }
 
     @Test
-    public void mustSaveEmployeeToDatabaseWhenCallingCreateEmployee() throws CustomerServiceException, SQLException {
+    public void mustSaveEmployeeToDatabaseWhenCallingCreateEmployee() throws SQLException {
         // Arrange
         var firstName = "John";
         var lastName = "Johnson";
